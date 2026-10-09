@@ -1,0 +1,24 @@
+
+/* Unified custom scrollbar for all main scrollable containers */
+.sidebar-scroll::-webkit-scrollbar,
+.chat-scroll::-webkit-scrollbar,
+.right-sidebar-scroll::-webkit-scrollbar {
+  width: 8px;
+  background: #282142;
+  border-radius: 8px;
+  background: #18162b;
+}
+
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Removed duplicate sidebar-scroll rules. Use unified rules above. */
