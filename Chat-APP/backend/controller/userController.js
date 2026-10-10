@@ -3,6 +3,13 @@ import { generateToken } from "../lib/util.js";
 import User from "../model/user.js";
 import bcrypt from "bcrypt";
 
+const cookieOptions = {
+  path: "/",
+  httpOnly: true,
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+  secure: process.env.NODE_ENV === "production",
+};
+
 export const signUp = async (req, res) => {
   const { fullName, email, password, bio } = req.body;
 
@@ -35,9 +42,7 @@ export const signUp = async (req, res) => {
 
     const token = generateToken(newUser._id);
     res.cookie("token", token, {
-      path: "/",
-      httpOnly: true,
-      sameSite: "Strict",
+      ...cookieOptions,
       maxAge: 30 * 60 * 1000,
     });
     return res.json({
@@ -79,9 +84,7 @@ export const login = async (req, res) => {
     }
     const token = generateToken(user._id);
     res.cookie("token", token, {
-      path: "/",
-      httpOnly: true,
-      sameSite: "Strict",
+      ...cookieOptions,
       maxAge: 30 * 60 * 1000,
     });
     return res.json({
@@ -97,11 +100,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token", {
-    path: "/",
-    httpOnly: true,
-    sameSite: "Strict",
-  });
+  res.clearCookie("token", cookieOptions);
   return res.status(200).json({ message: "Logged out" });
 };
 

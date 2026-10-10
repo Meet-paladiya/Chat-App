@@ -18,6 +18,10 @@ const allowedOrigins = [
   "http://localhost:5173", // for development
 ];
 
+if (process.env.CLIENT_URL && !allowedOrigins.includes(process.env.CLIENT_URL)) {
+  allowedOrigins.push(process.env.CLIENT_URL);
+}
+
 // Dynamic origin check
 const corsOptions = {
   origin: function (origin, callback) {
@@ -70,10 +74,9 @@ app.use("/api/messages", messageRouter);
 
 await connectDB();
 
-if (process.env.NODE_ENV !== "production") {
-  server.listen(process.env.PORT || 5000, () => {
-    console.log(`Server is running on port ${process.env.PORT || 5000}`);
-  });
-}
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 export default server;
