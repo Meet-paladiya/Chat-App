@@ -3,12 +3,16 @@ import User from "../model/user.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies?.token;
-    if(!token){
+    const token =
+      req.cookies?.token ||
+      req.headers.authorization?.split(" ")[1] ||
+      req.headers.token;
+
+    if (!token) {
       return res.json({
-        success:false,
-        message:"Token is not avaliable."
-      })
+        success: false,
+        message: "Token is not avaliable.",
+      });
     }
     const decode = verifyToken(token);
     const user = await User.findById(decode.userId).select("-password");

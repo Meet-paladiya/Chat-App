@@ -7,22 +7,36 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 axios.defaults.baseURL = backendUrl;
 axios.defaults.withCredentials = true;
 
+const savedToken = localStorage.getItem("token");
+if (savedToken) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
+}
+
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [authUser, setAuthUser] = useState(null);
   const [onlineUser, setOnlineUser] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
     try {
-      const { data } = await axios.get("/api/auth/check"); // uses cookie behind the scenes
+      const token = localStorage.getItem("token");
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
+      const { data } = await axios.get("/api/auth/check");
       if (data.success) {
         setAuthUser(data.user);
         connectSocket(data.user);
+      } else {
+        setAuthUser(null);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+      setAuthUser(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,6 +44,10 @@ const AuthProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`/api/auth/${state}`, credentials);
       if (data.success) {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+        }
         setAuthUser(data.userData);
         connectSocket(data.userData);
         toast.success(data.message);
@@ -43,13 +61,16 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.get("/api/auth/logout"); // you should implement this to clear the cookie on backend
+      await axios.get("/api/auth/logout");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      localStorage.removeItem("token");
+      delete axios.defaults.headers.common["Authorization"];
       setAuthUser(null);
       setOnlineUser([]);
       toast.success("Log Out successfully");
       socket?.disconnect();
-    } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
     }
   };
 
@@ -84,7 +105,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkAuth(); // Check auth on mount via cookie
+    checkAuth();
   }, []);
 
   const value = {
@@ -95,6 +116,7 @@ const AuthProvider = ({ children }) => {
     login,
     logout,
     updateProfile,
+    loading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
