@@ -1,3 +1,4 @@
+
 # 💬 Real-Time Chat Application
 
 A full-stack, real-time messaging application built with the **MERN** stack (MongoDB, Express, React, Node.js), **Socket.io**, and **Tailwind CSS**. Features instant messaging, online user presence tracking, profile management with image uploads via Cloudinary, unread message badges, and robust JWT-based authentication.
@@ -42,6 +43,17 @@ A full-stack, real-time messaging application built with the **MERN** stack (Mon
 - **Media Storage:** Cloudinary SDK
 
 ---
+## 📸 Screenshots
+| 🔐 Authentication (Sign In / Sign Up) | 💬 Chat Dashboard |
+| :---: | :---: |
+<img width="1710" height="1112" alt="Screenshot 2026-10-11 at 12 49 27 PM" src="https://github.com/user-attachments/assets/959855f0-bc52-49fc-90f6-9715622a7ff2" />
+<img width="1710" height="1112" alt="Screenshot 2026-10-11 at 12 49 36 PM" src="https://github.com/user-attachments/assets/646440e5-72a5-4511-a218-348a75af6f06" />
+
+| ⚡ Real-Time Messaging & Presence | 👤 Profile Management & Avatar Upload |
+| :---: | :---: |
+<img width="1710" height="1112" alt="Screenshot 2026-10-11 at 12 50 45 PM" src="https://github.com/user-attachments/assets/ea008d0e-d742-408a-a760-b951caf8fa98" />
+<img width="1710" height="1112" alt="Screenshot 2026-10-11 at 12 48 48 PM" src="https://github.com/user-attachments/assets/bea8302f-6bf6-4989-989b-b9f23251156c" />
+
 
 ## 📂 Project Structure
 
