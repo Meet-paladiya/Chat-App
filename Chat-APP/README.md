@@ -172,8 +172,3 @@ Open `http://localhost:5173` in your browser.
    - `VITE_BACKEND_URL`: `https://your-backend.onrender.com` (no trailing slash).
 4. Deploy!
 
----
-
-## 📄 License
-
-This project is licensed under the [ISC License](LICENSE).
