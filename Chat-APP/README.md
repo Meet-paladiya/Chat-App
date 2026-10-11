@@ -11,6 +11,18 @@ A full-stack, real-time messaging application built with the **MERN** stack (Mon
 
 ---
 
+## 📸 Screenshots
+
+| 🔐 Authentication (Sign In / Sign Up) | 💬 Chat Dashboard |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/bea8302f-6bf6-4989-989b-b9f23251156c" alt="Authentication Screen" width="420" /> | <img src="https://github.com/user-attachments/assets/959855f0-bc52-49fc-90f6-9715622a7ff2" alt="Chat Dashboard" width="420" /> |
+
+| ⚡ Real-Time Messaging & Presence | 👤 Profile Management & Avatar Upload |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/646440e5-72a5-4511-a218-348a75af6f06" alt="Real-Time Chat" width="420" /> | <img src="https://github.com/user-attachments/assets/ea008d0e-d742-408a-a760-b951caf8fa98" alt="Profile Settings" width="420" /> |
+
+---
+
 ## ✨ Features
 
 - **⚡ Real-Time Messaging:** Instant peer-to-peer chat powered by Socket.io WebSockets.
